@@ -39,3 +39,19 @@ class Linklist:
                 cur.next = Linklist(i)
             cur = cur.next
         return head.next
+
+
+def list_to_link(x: list):
+    """
+    :param x: [1,2,3]
+    :return:
+    """
+    head = Linklist(0)
+    cur = head
+    for i in x:
+        if isinstance(i, Linklist):
+            cur.next = i
+        else:
+            cur.next = Linklist(i)
+        cur = cur.next
+    return head.next
