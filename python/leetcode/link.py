@@ -20,6 +20,22 @@ def reverse(link: Linklist):
     return res
 
 
+def hasCycle(head: Linklist):
+    """
+    leetcode 141. 环形链表
+    :param head:
+    :return:
+    """
+    a, b = head, head
+    while a or b:
+        if not a.next or not b.next:
+            return False
+        if a == b:
+            return True
+        a = a.next.next
+        b = b.next
+    return False
+
 if __name__ == '__main__':
     lnk =  list_to_link(range(5))
     print(reverse(lnk))
