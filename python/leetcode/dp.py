@@ -35,6 +35,26 @@ def lics(lst):
     return res
 
 
+def longestPalindrome_409(s):
+    """
+    leetcode 409. 最长回文串
+    偶数次的可以全部使用，奇数最多用一个
+    :type s: str
+    :rtype: int
+    """
+    mp = {}
+    for i in s:
+        mp[i] = mp.get(i, 0) + 1
+    res = 0
+    p = 0
+    for i, j in mp.items():
+        if j % 2 == 1:
+            res += (j - 1)
+            p = 1
+        if j % 2 == 0:
+            res += j
+    return res + p
+
 def longestPalindrome(s):
     """
     最长回文 暴力破解
@@ -55,9 +75,50 @@ def longestPalindrome(s):
     return res
 
 
+def longestPalindromeV1(s):
+    """
+    leetcode 5. 最长回文子串
+    最长回文字串 中心扩展法 O2
+    :param s:
+    :return:
+    """
+    lens = len(s)
+    start, end = 0, 0
+    tmp = 0
+    if lens < 2:
+        return s
+    for i in range(len(s)): # 扫一遍奇数情况
+        left, right = i-1, i+1
+        while left >= 0 and right < lens and s[left]==s[right]:
+            print(right, left)
+            if right - left > tmp:
+                tmp = right - left
+                start = left
+                end = right
+            left -= 1
+            right += 1
+    for i in range(len(s)): # 扫偶数
+        left, right = i-1, i
+        while left >= 0 and right < lens and s[left]==s[right]:
+            if right - left > tmp:
+                tmp = right-left
+                start = left
+                end = right
+            left -= 1
+            right += 1
+    return s[start:end+1]
+
+
 if __name__ == '__main__':
     # print(lcs("abcde", "ace"))
     
     # print(lics([1,2,3,4,5,6,7,3,2,34,5,6,7,1,2,3,4,5,6,7,8]))
     
     print(longestPalindrome("aa"))
+    
+    print(longestPalindromeV1("abccba"))
+    print(longestPalindromeV1("aababcc"))
+    print(longestPalindromeV1("abb"))
+    print(longestPalindromeV1("ccc"))
+    
+    print(longestPalindromet("ccc"))
