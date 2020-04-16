@@ -16,3 +16,12 @@ def hammingWeight(n):
     return res
 
 
+def pow_2(x):
+    """
+    2 的指数
+    :param x:
+    :return:
+    """
+    if x < 0:
+        return False
+    return (x & (x-1)) == 0

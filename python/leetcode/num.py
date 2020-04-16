@@ -3,23 +3,29 @@
 # @file: num.py
 
 def threeSum(nums):
+    """
+    排序 + 指针
+    :param nums:
+    :return:
+    """
+    nums.sort()
     lenn = len(nums)
-    res = []
-    sset = set()
+    res = set()
     for i in range(lenn):
-        for j in range(i+1, lenn):
-            for z in range(j+1, lenn):
-                
-                if nums[i] + nums[j] + nums[z] == 0:
-                    tmp = [nums[i], nums[j], nums[z]]
-                    tmp.sort()
-                    ssss = "{}".format(tmp)
-                    print(ssss)
-                    if ssss not in sset:
-                        sset.add(ssss)
-                        res.append([nums[i], nums[j], nums[z]])
-    
+        j, k = i+1, lenn-1
+        while j < k:
+            sm = nums[i] + nums[j] + nums[k]
+            if sm == 0:
+                res.add((nums[i], nums[j], nums[k]))
+                k -= 1
+                j += 1
+            if sm > 0:
+                k -= 1
+            if sm < 0:
+                j += 1
     return res
+    
+    
 
 def twoSum(nums, target):
     """
@@ -38,7 +44,9 @@ def twoSum(nums, target):
             return [i, rs[t]]
     return [0, 0]
 
+
+
 if __name__ == '__main__':
-    # print(threeSum([-1, 0, 1, 2, -1, -4]))
+    print(threeSum([-1, 0, 1, 2, -1, -4]))
     
     print(twoSum([3,2,4], 6))
