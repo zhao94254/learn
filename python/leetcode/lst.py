@@ -18,8 +18,25 @@ def merge(lst):
             res.append(l)
     return res
 
+def coinChange(coins, x):
+    if x < 0:
+        return -1
+    if x == 0:
+        return 0
+    res = 99999
+    for coin in coins:
+        
+        subx = coinChange(coins, x-coin)
+        if subx < 0:
+            continue
+        
+        res = min(res, subx+1)
+    
+    return res
+    
 if __name__ == '__main__':
     print(merge([[1,3],[2,6],[8,10],[15,18]]))
     
-        
-        
+    print(coinChange([1,2,5, 10], 12))
+    
+    print(merge_sort([4, 3, 1, 5, 43, 6, 23, 4, 5]))

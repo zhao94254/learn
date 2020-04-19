@@ -76,9 +76,42 @@ def romanToInt(s):
     return res
     
 
+def exists(board, word):
+    """
+    面试题12. 矩阵中的路径
+    dfs + 标记
+    类似于求岛屿数量问题
+    :param board:
+    :param word:
+    :return:
+    """
+    m, n = len(board), len(board[0])
+    def dfs(i, j, k):
+        if i < 0 or i >= m or j < 0 or j >= n or board[i][j] != word[k]:
+            return False
+        if k == len(word)-1:
+            return True
+        tmp = board[i][j]
+        board[i][j] = "."
+        res = dfs(i-1, j, k+1) or dfs(i,j-1,k+1) or dfs(i, j+1, k+1) or dfs(i+1, j, k+1)
+        board[i][j] = tmp
+        return res
+    
+    for i in range(m):
+        for j in range(n):
+            print(i,j)
+            if dfs(i,j,0):
+                return True
+    return False
+    
+    
+    
+
 if __name__ == '__main__':
     # print(longestCommonPrefix(["dog","racecar","car"]))
     
-    print(reverse(0))
+    # print(reverse(0))
     
-    print(romanToInt("MCMXCIV"))
+    # print(romanToInt("MCMXCIV"))
+    
+    print(exists([["a","b"]], "ba"))
