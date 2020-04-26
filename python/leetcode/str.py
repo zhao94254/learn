@@ -105,7 +105,34 @@ def exists(board, word):
     return False
     
     
-    
+def longest_brackets(s):
+    res = 0
+    tp = 0
+    for i in s:
+        if i == ")":
+            if tp > 0:
+                res += 2
+            tp -= 1
+        if i == "(":
+            tp += 1
+        if tp < 0:
+            tp = 0
+    return res
+
+def xsqrt(x, gap):
+    d = x/2
+    low, up = 0, x
+    while abs(d*d - x) > gap:
+        print(d,low,up)
+        if d*d > x:
+            up = d
+            d = up - (up-low) /2.0
+            
+        else:
+            low = d
+            d = low + (up-low) /2.0
+            
+    return d
 
 if __name__ == '__main__':
     # print(longestCommonPrefix(["dog","racecar","car"]))
@@ -114,4 +141,6 @@ if __name__ == '__main__':
     
     # print(romanToInt("MCMXCIV"))
     
-    print(exists([["a","b"]], "ba"))
+    # print(exists([["a","b"]], "ba"))
+    
+    print(xsqrt(8.0, 0.04))
