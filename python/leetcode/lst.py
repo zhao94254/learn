@@ -80,7 +80,54 @@ def maxArea(grid):
                 jj = 0
     return res
 
-    
+
+def prem(lst):
+    """
+    排列 -
+    :param lst:
+    :return:
+    """
+    res = []
+    def helper(lst, start):
+        if start >= len(lst):
+            res.append(lst[:])
+        for i in range(start, len(lst)):
+            lst[i], lst[start] = lst[start], lst[i]
+            helper(lst, start+1)
+            lst[i], lst[start] = lst[start], lst[i]
+    helper(lst, 0)
+    return res
+
+def combine(n, k):
+    """
+    组合
+    :param n:
+    :param k:
+    :return:
+    """
+    res = []
+    def helper(start, tmp):
+        if len(tmp) == k:
+            res.append(tmp[:])
+        for i in range(start, len(n)):
+            tmp.append(n[i])
+            helper(i+1, tmp)
+            tmp.pop()
+    helper(0, [])
+    return res
+
+def subset(t):
+    """
+    子集
+    :param t:
+    :return:
+    """
+    res = [[]]
+    for i in range(len(t)):
+        for j in res[:]:
+            res.append(j + [t[i]])
+    return res
+
 if __name__ == '__main__':
     # print(merge([[1,3],[2,6],[8,10],[15,18]]))
     
@@ -89,3 +136,9 @@ if __name__ == '__main__':
     # print(merge_sort([4, 3, 1, 5, 43, 6, 23, 4, 5]))
     # print(numIslands([["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]))
     print(maxArea([[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]))
+    
+    print(prem([1,2,3]))
+    
+    print(combine("abcd", 2))
+    
+    print(subset([1,2,3]))
