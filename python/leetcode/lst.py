@@ -106,14 +106,14 @@ def combine(n, k):
     :return:
     """
     res = []
-    def helper(start, tmp):
+    def dfs(start, tmp):
         if len(tmp) == k:
             res.append(tmp[:])
         for i in range(start, len(n)):
             tmp.append(n[i])
-            helper(i+1, tmp)
+            dfs(i+1, tmp)
             tmp.pop()
-    helper(0, [])
+    dfs(0, [])
     return res
 
 def subset(t):
@@ -128,6 +128,69 @@ def subset(t):
             res.append(j + [t[i]])
     return res
 
+def lengthOfLIS(lst):
+    """
+    最长递增子序列
+    :param lst:
+    :return:
+    """
+    dp = []
+    for i in range(len(lst)):
+        dp.append(1)
+        for j in range(i):
+            if lst[i] > lst[j]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    print(dp)
+    return max(dp)
+
+def subsetss(n):
+    res = []
+    
+    def dfs(s, nn, cur):
+        if len(cur) == nn:
+            res.append(cur[:])
+            
+        for i in range(s, len(n)):
+            cur.append(n[i])
+            dfs(i+1, nn, cur)
+            cur.pop()
+    for nn in range(len(n)+1):
+        dfs(0, nn, [])
+    return res
+
+def combination(n, k):
+    res = []
+    
+    def dfs(s, cur):
+        if len(cur) == k:
+            res.append(cur[:])
+        for i in range(s, len(n)):
+            cur.append(n[i])
+            dfs(i+1, cur)
+            cur.pop()
+    dfs(0, [])
+    return res
+
+
+def permutation(n, k):
+    res = []
+    used = [False for _ in range(len(n))]
+    def dfs(s, cur):
+        if len(cur) == k:
+            res.append(cur[:])
+        for i in range(len(n)):
+            if used[i]:
+                continue
+            cur.append(n[i])
+            used[i] = True
+            dfs(s + 1, cur)
+            cur.pop()
+            used[i] = False
+    
+    dfs(0, [])
+    return res
+
+
 if __name__ == '__main__':
     # print(merge([[1,3],[2,6],[8,10],[15,18]]))
     
@@ -135,10 +198,18 @@ if __name__ == '__main__':
     
     # print(merge_sort([4, 3, 1, 5, 43, 6, 23, 4, 5]))
     # print(numIslands([["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]))
-    print(maxArea([[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]))
+    # print(maxArea([[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]))
+    #
+    # print(prem([1,2,3]))
+    #
+    # print(combine("123", 2))
+    #
+    # print(subset([1,2,3]))
     
-    print(prem([1,2,3]))
+    # print(lengthOfLIS([10,9,2,5,3,7,101,18]))
     
-    print(combine("abcd", 2))
+    print(combination("123", 2))
     
-    print(subset([1,2,3]))
+    print(permutation([1,2,3], 2))
+    
+    print(subsetss([1,2,3]))

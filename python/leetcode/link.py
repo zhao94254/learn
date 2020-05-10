@@ -4,6 +4,29 @@
 
 from python.link import *
 
+def reverseKgroup(link, k):
+    ret = Linklist(0)
+    cur = ret
+    while True:
+        count = k
+        tmp = []
+        tp = link
+        while count > 0 and tp: # 压栈
+            tmp.append(tp)
+            tp = tp.next
+            count -= 1
+        
+        if count > 0: # 不够k个
+            break
+        while len(tmp) > 0:
+            cur.next = tmp.pop()
+            cur = cur.next
+        
+        cur.next = tp # 链接剩下的
+        link = tp # 从后面开始
+        
+        
+    return ret.next
 
 def reverse(link: Linklist):
     """
@@ -69,9 +92,10 @@ def addTwoNumbers(l1, l2):
     
 
 if __name__ == '__main__':
-    lnk =  list_to_link(range(5))
-    print(reverse(lnk))
+    lnk =  list_to_link(range(15))
+    # print(reverse(lnk))
+    print(reverseKgroup(lnk, 4))
+    # l1 = list_to_link([7,2,4,3])
+    # l2 = list_to_link([5,6,4])
+    # print(addTwoNumbers(l1, l2))
     
-    l1 = list_to_link([7,2,4,3])
-    l2 = list_to_link([5,6,4])
-    print(addTwoNumbers(l1, l2))
