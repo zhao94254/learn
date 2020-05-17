@@ -74,6 +74,32 @@ def longestPalindrome(s):
                     res = s[i:j]
     return res
 
+def longestSubPalindrome(s):
+    """
+    leetcode 5 最长回文字串
+    :param s:
+    :return:
+    """
+    n = len(s)
+    
+    def getLen(l, r):
+        while l >= 0 and r < n and s[l] == s[r]:
+            l -= 1
+            r += 1
+            
+        return  r-l-1
+    length = 0
+    start, end = 0, 0
+    for i in range(n):
+        
+        tmp = max(getLen(i,i), getLen(i,i+1))
+        if tmp < length:
+            continue
+        length = tmp
+        start = i - (length-1) // 2
+    
+    return s[start:start+length]
+    
 
 def longestPalindromeV1(s):
     """
@@ -114,11 +140,13 @@ if __name__ == '__main__':
     
     # print(lics([1,2,3,4,5,6,7,3,2,34,5,6,7,1,2,3,4,5,6,7,8]))
     
-    print(longestPalindrome("aa"))
+    # print(longestPalindrome("aa"))
+    #
+    # print(longestPalindromeV1("abccba"))
+    # print(longestPalindromeV1("aababcc"))
+    # print(longestPalindromeV1("abb"))
+    # print(longestPalindromeV1("ccc"))
     
-    print(longestPalindromeV1("abccba"))
-    print(longestPalindromeV1("aababcc"))
-    print(longestPalindromeV1("abb"))
-    print(longestPalindromeV1("ccc"))
+    print(longestSubPalindrome("cbbd"))
     
-    print(longestPalindromet("ccc"))
+    # print(longestPalindromet("ccc"))
