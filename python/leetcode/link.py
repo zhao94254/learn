@@ -89,13 +89,40 @@ def addTwoNumbers(l1, l2):
         
 
     return reverse(res.next)
-    
+
+
+def mergeTwoLists(l1, l2):
+    """
+    leetcode 21. 合并两个有序链表
+    :param l1:
+    :param l2:
+    :return:
+    """
+    dummy = Linklist(0)
+    cur = dummy
+    while l1 and l2:
+        if l1 and l2:
+            if l1.val < l2.val:
+                cur.next = l1
+                l1 = l1.next
+            else:
+                cur.next = l2
+                l2 = l2.next
+            cur = cur.next
+    if l1:
+        cur.next = l1
+    if l2:
+        cur.next = l2
+        
+    return dummy.next
+
 
 if __name__ == '__main__':
     lnk =  list_to_link(range(15))
     # print(reverse(lnk))
-    print(reverseKgroup(lnk, 4))
+    # print(reverseKgroup(lnk, 4))
     # l1 = list_to_link([7,2,4,3])
     # l2 = list_to_link([5,6,4])
     # print(addTwoNumbers(l1, l2))
     
+    print(mergeTwoLists(list_to_link([1,3,5,9]), list_to_link([2,4,7,8])))
