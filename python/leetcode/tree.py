@@ -40,12 +40,40 @@ def hasPathSum(root, _sum):
         return True
     return hasPathSum(root.left, _sum-root.val) or hasPathSum(root.right, _sum-root.val)
 
+
+def levelOrder(root):
+    """
+    leetcode 102 二叉树层次遍历
+    :param root:
+    :return:
+    """
+    res = []
+    _q = [root]
+    def helper(_q, res, level):
+        while _q:
+            if len(res) < level+1:
+                res.append([])
+            _root = _q.pop()
+            res[level].append(_root.val)
+            if _root.left:
+                _q.append(_root.left)
+                helper(_q, res, level+1)
+            if _root.right:
+                _q.append(_root.right)
+                helper(_q, res, level + 1)
+        return
+    helper(_q, res, 0)
+    return res
+    
+    
 if __name__ == '__main__':
     
     xtree = BinTree().list_to_tree(range(10))
-    print(xtree)
+    # print(xtree)
     
     # print(tree_height(xtree))
     # print(tree_m_height(xtree))
     
     print(hasPathSum(xtree, 11))
+    
+    print(levelOrder(xtree))
