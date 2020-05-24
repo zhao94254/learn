@@ -11,15 +11,15 @@ def lcs(lst1, lst2):
     :param lst2:
     :return:
     """
-    res = [[0]*(len(lst1)+1) for _ in range(len(lst2)+1)]
+    res = [[0] * (len(lst1) + 1) for _ in range(len(lst2) + 1)]
     ks = []
     for i in range(len(lst2)):
         for j in range(len(lst1)):
             if lst2[i] == lst1[j]:
-                res[i][j] = res[i-1][j-1] + 1
+                res[i][j] = res[i - 1][j - 1] + 1
                 ks.append(lst2[i])
             else:
-                res[i][j] = max(res[i-1][j], res[i][j-1])
+                res[i][j] = max(res[i - 1][j], res[i][j - 1])
     return res[-2][-2]
 
 
@@ -27,11 +27,11 @@ def lics(lst):
     res = 0
     tmp = 0
     for i in range(1, len(lst)):
-        if lst[i] > lst[i-1]:
+        if lst[i] > lst[i - 1]:
             tmp += 1
         else:
             tmp = 0
-        res = max(res,tmp)
+        res = max(res, tmp)
     return res
 
 
@@ -55,24 +55,28 @@ def longestPalindrome_409(s):
             res += j
     return res + p
 
+
 def longestPalindrome(s):
     """
     最长回文 暴力破解
     :param s:
     :return:
     """
+    
     def is_p(s):
         return s == s[::-1]
+    
     res = ""
     if len(s) == 1:
         return s
     for i in range(len(s)):
-        for j in range(i+1, len(s)+1):
+        for j in range(i + 1, len(s) + 1):
             if is_p(s[i:j]):
                 
-                if j-i > len(res):
+                if j - i > len(res):
                     res = s[i:j]
     return res
+
 
 def longestSubPalindrome(s):
     """
@@ -86,20 +90,21 @@ def longestSubPalindrome(s):
         while l >= 0 and r < n and s[l] == s[r]:
             l -= 1
             r += 1
-            
-        return  r-l-1
+        
+        return r - l - 1
+    
     length = 0
     start, end = 0, 0
     for i in range(n):
         
-        tmp = max(getLen(i,i), getLen(i,i+1))
+        tmp = max(getLen(i, i), getLen(i, i + 1))
         if tmp < length:
             continue
         length = tmp
-        start = i - (length-1) // 2
+        start = i - (length - 1) // 2
     
-    return s[start:start+length]
-    
+    return s[start:start + length]
+
 
 def longestPalindromeV1(s):
     """
@@ -113,9 +118,9 @@ def longestPalindromeV1(s):
     tmp = 0
     if lens < 2:
         return s
-    for i in range(len(s)): # 扫一遍奇数情况
-        left, right = i-1, i+1
-        while left >= 0 and right < lens and s[left]==s[right]:
+    for i in range(len(s)):  # 扫一遍奇数情况
+        left, right = i - 1, i + 1
+        while left >= 0 and right < lens and s[left] == s[right]:
             print(right, left)
             if right - left > tmp:
                 tmp = right - left
@@ -123,16 +128,45 @@ def longestPalindromeV1(s):
                 end = right
             left -= 1
             right += 1
-    for i in range(len(s)): # 扫偶数
-        left, right = i-1, i
-        while left >= 0 and right < lens and s[left]==s[right]:
+    for i in range(len(s)):  # 扫偶数
+        left, right = i - 1, i
+        while left >= 0 and right < lens and s[left] == s[right]:
             if right - left > tmp:
-                tmp = right-left
+                tmp = right - left
                 start = left
                 end = right
             left -= 1
             right += 1
-    return s[start:end+1]
+    return s[start:end + 1]
+
+
+def maxProduct(lst):
+    """
+    leetcode 152: 最大乘积子数组
+    思路 -由于有负数需要 维护俩状态 最大的和最小的
+    maxF = max(maxF*i, max(i, i*minF))
+    res = max(maxF*i, minF*i)
+    :param lst:
+    :return:
+    """
+
+
+def subarraySum(lst, k):
+    """
+    leetcode 560 和为k的子数组
+    :param lst:
+    :param k:
+    :return:
+    """
+    pre_lst = [0]
+    res = []
+    for i in range(len(lst)):
+        pre_lst.append(pre_lst[-1] + lst[i])  # 前缀
+    for i in range(len(lst)):
+        for j in range(i, len(lst)):
+            if pre_lst[j + 1] - pre_lst[i] == k:
+                res.append(lst[i:j + 1])
+    return res
 
 
 if __name__ == '__main__':
@@ -147,6 +181,8 @@ if __name__ == '__main__':
     # print(longestPalindromeV1("abb"))
     # print(longestPalindromeV1("ccc"))
     
-    print(longestSubPalindrome("cbbd"))
+    # print(longestSubPalindrome("cbbd"))
     
     # print(longestPalindromet("ccc"))
+    
+    print(subarraySum([1, 2, 3, 4, 5], 2))

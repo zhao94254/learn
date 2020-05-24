@@ -140,7 +140,6 @@ def lengthOfLIS(lst):
         for j in range(i):
             if lst[i] > lst[j]:
                 dp[i] = max(dp[i], dp[j] + 1)
-    print(dp)
     return max(dp)
 
 def subsetss(n):
@@ -191,6 +190,34 @@ def permutation(n, k):
     return res
 
 
+def combinationSum(candidates, target):
+    """
+    和为 target 的组合数
+    :param candidates:
+    :param target:
+    :return:
+    """
+    res = []
+
+    def dfs(target, path, start):
+        if target == 0:
+            res.append(path[:])
+            return
+        for i in range(start, len(candidates)):
+            _x = target - candidates[i] # 求解子问题
+            if _x < 0:
+                return
+            path.append(candidates[i])
+            dfs(_x, path, i) # 从i开始 - 可重复选
+            path.pop()
+        
+        
+    dfs(target, [], 0)
+    return res
+
+
+
+
 if __name__ == '__main__':
     # print(merge([[1,3],[2,6],[8,10],[15,18]]))
     
@@ -208,8 +235,12 @@ if __name__ == '__main__':
     
     # print(lengthOfLIS([10,9,2,5,3,7,101,18]))
     
-    print(combination("123", 2))
+    # print(combination("123", 2))
+    #
+    # print(permutation([1,2,3], 2))
+    #
+    # print(subsetss([1,2,3]))
+    #
+    # print(combination("123456", 2))
     
-    print(permutation([1,2,3], 2))
-    
-    print(subsetss([1,2,3]))
+    print(combinationSum([2,3,5], 8))
