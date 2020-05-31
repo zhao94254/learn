@@ -134,6 +134,26 @@ def xsqrt(x, gap):
             
     return d
 
+
+def simplifyPath(path):
+    """
+    简化linux路径
+    :param path:
+    :return:
+    """
+    stack = []
+    for i in path.split("/"):
+        if i == ".":
+            continue
+        elif i == "..":
+            if len(stack) > 0:
+                stack.pop()
+        elif i == "":
+            pass
+        else:
+            stack.append(i)
+    return "/".join(stack)
+
 if __name__ == '__main__':
     # print(longestCommonPrefix(["dog","racecar","car"]))
     
@@ -143,4 +163,6 @@ if __name__ == '__main__':
     
     # print(exists([["a","b"]], "ba"))
     
-    print(xsqrt(8.0, 0.04))
+    # print(xsqrt(8.0, 0.04))
+    
+    print(simplifyPath("/a//b////c/d//././/.."))

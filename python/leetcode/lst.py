@@ -215,10 +215,84 @@ def combinationSum(candidates, target):
     dfs(target, [], 0)
     return res
 
+def rob(lst):
+    if len(lst) < 2:
+        return max(lst)
+    dp = [0 for _ in range(len(lst))]
+    dp[0] = lst[0]
+    dp[1] = lst[1]
+    for i in range(2, len(lst)):
+        dp[i] = max(dp[i-1], lst[i]+dp[i-2])
+    return dp[-1]
 
+def rob1(lst):
+    dp1, dp2 = 0, 0
+    for i in lst:
+        dp = max(dp1, dp2+i)
+        dp2 = dp1
+        dp1 = dp
+    return dp1
 
+def largestRectangleArea(heights):
+    """
+    最大矩阵面积
+    :param heights:
+    :return:
+    """
+    stack = []
+    res = 0
+    heights.append(0)  # 处理heights 本来就是一个单调栈的情况
+    i, lenh = 0, len(heights)
+    
+    while i < lenh:
+        if len(stack) == 0 or heights[stack[-1]] <= heights[i]:
+            stack.append(i)
+        else:
+            start = stack.pop()
+            width = i if not stack else i - stack[-1]-1
+            res = max(res, heights[start]*width)
+            i -= 1
+        i += 1
+    
+    return res
+
+def maxArea1(lst):
+    """
+    盛水最多容器
+    :param lst:
+    :return:
+    """
+    res = 0
+    l, r = 0, len(lst)-1
+    while l < r:
+        res = max(res, (r-l)*min(lst[r], lst[l]))
+        if lst[l] < lst[r]:
+            l += 1
+        else:
+            r -= 1
+    return res
+
+def maxPorfit(lst):
+    """
+    买卖股票 - 注意边界case
+    :param lst:
+    :return:
+    """
+    if len(lst) == 0:
+        return 0
+    res = 0
+    m = lst[0]
+    for i in range(len(lst)):
+        m = min(m, lst[i]) # 维护一个当前最小值
+        res = max(res, lst[i]-m)
+    return res
 
 if __name__ == '__main__':
+    print(maxPorfit([7,6,5,4]))
+    # print(maxArea1([8,1,2,3,8,2]))
+    #
+    # print(largestRectangleArea([1,2,3,4,5]))
+    
     # print(merge([[1,3],[2,6],[8,10],[15,18]]))
     
     # print(coinChange([1,2,5, 10], 12))
@@ -243,4 +317,7 @@ if __name__ == '__main__':
     #
     # print(combination("123456", 2))
     
-    print(combinationSum([2,3,5], 8))
+    # print(combinationSum([2,3,5], 8))
+    
+    # print(rob([2,7,9,3,1]))
+    # print(rob1([1,7,9,3,1]))
