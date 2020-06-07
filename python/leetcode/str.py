@@ -154,6 +154,23 @@ def simplifyPath(path):
             stack.append(i)
     return "/".join(stack)
 
+def intToRoman(d):
+    """
+    leetcode 12. 整数转罗马数字
+
+    :param d:
+    :return:
+    """
+    mp = {1: 'I', 5: 'V', 10: 'X', 50: 'L', 100: 'C', 500: 'D', 1000: 'M', 4: 'IV', 9: 'IX', 40: 'XL', 90: 'XC', 400: 'CD', 900: 'CM'}
+    res = ""
+    while d > 0:
+        for m in [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]:
+            if d >= m:
+                t = mp[m] * (d//m)
+                d = d % m
+                res += t
+    return res
+
 if __name__ == '__main__':
     # print(longestCommonPrefix(["dog","racecar","car"]))
     
@@ -166,3 +183,5 @@ if __name__ == '__main__':
     # print(xsqrt(8.0, 0.04))
     
     print(simplifyPath("/a//b////c/d//././/.."))
+    
+    print(intToRoman(58))

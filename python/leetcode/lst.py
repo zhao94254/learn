@@ -287,8 +287,20 @@ def maxPorfit(lst):
         res = max(res, lst[i]-m)
     return res
 
+def maxProfit1(lst):
+    res = 0
+    tmp = []
+    for i in range(1, len(lst)):
+        tmp.append(lst[i]-lst[i-1])
+    for d in tmp:
+        if d > 0:
+            res += d
+    return res
+
 if __name__ == '__main__':
-    print(maxPorfit([7,6,5,4]))
+    print(maxProfit1([7,1,5,3,6,4]))
+    
+    # print(maxPorfit([7,6,5,4]))
     # print(maxArea1([8,1,2,3,8,2]))
     #
     # print(largestRectangleArea([1,2,3,4,5]))

@@ -65,7 +65,39 @@ def levelOrder(root):
     helper(_q, res, 0)
     return res
     
-    
+def isSymmetric(root):
+    """
+    是否是镜像树
+    :param root:
+    :return:
+    """
+    def helper(left, right):
+        if left is None and right is None:
+            return True
+        if left is None or right is None:
+            return False
+        if left.val != right.val:
+            return False
+        return helper(left.left, right.right) and helper(left.right, right.left)
+    if root is None:
+        return True
+    return helper(root.left, root.right)
+
+def isSubtree(s, t):
+    if t is None:
+        return True
+    if s is None:
+        return False
+    if isSameTree(s, t):
+        return True
+    return isSubtree(s.left, t) or isSubtree(s.right, t)
+
+def isSameTree(s, t):
+    if s is None or t is None:
+        return s == t
+    return s.val == t.val and isSameTree(s.left, t.left) and isSameTree(s.right, t.right)
+
+
 if __name__ == '__main__':
     
     xtree = BinTree().list_to_tree(range(10))
