@@ -117,12 +117,37 @@ def mergeTwoLists(l1, l2):
     return dummy.next
 
 
+def removeNthFromEnd(head, n):
+    """
+    leetcode 19
+    :param head:
+    :param n:
+    :return:
+    """
+    dummy = Linklist()
+    dummy.next = head
+    slow = dummy
+    fast = dummy
+    while n >= 0:
+        n -= 1
+        fast = fast.next
+    while fast:
+        slow = slow.next
+        fast = fast.next
+    if slow.next:
+        slow.next = slow.next.next
+    return dummy.next
+
+
 if __name__ == '__main__':
-    lnk =  list_to_link(range(15))
+    lnk =  list_to_link(range(1, 2))
     # print(reverse(lnk))
     # print(reverseKgroup(lnk, 4))
     # l1 = list_to_link([7,2,4,3])
     # l2 = list_to_link([5,6,4])
     # print(addTwoNumbers(l1, l2))
     
-    print(mergeTwoLists(list_to_link([1,3,5,9]), list_to_link([2,4,7,8])))
+    # print(mergeTwoLists(list_to_link([1,3,5,9]), list_to_link([2,4,7,8])))
+    print(lnk)
+    
+    print(removeNthFromEnd(lnk, 1))

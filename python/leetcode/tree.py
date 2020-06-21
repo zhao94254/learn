@@ -97,15 +97,42 @@ def isSameTree(s, t):
         return s == t
     return s.val == t.val and isSameTree(s.left, t.left) and isSameTree(s.right, t.right)
 
-
+def buildTree(preorder, inorder):
+    """
+    :param preorder:
+    :param inorder:
+    :return:
+    """
+    if not preorder:
+        return None
+    root = BinTree(preorder[0])
+    index = inorder.index(root.val)
+    leftpre = preorder[1:index+1]
+    rightpre = preorder[index+1:]
+    leftin = inorder[:index+1]
+    rightin = inorder[index+1:]
+    root.left = buildTree(leftpre, leftin)
+    root.right = buildTree(rightpre, rightin)
+    
+    return root
+    
 if __name__ == '__main__':
     
-    xtree = BinTree().list_to_tree(range(10))
+    # xtree = BinTree().list_to_tree(range(10))
     # print(xtree)
     
     # print(tree_height(xtree))
     # print(tree_m_height(xtree))
     
-    print(hasPathSum(xtree, 11))
+    # print(hasPathSum(xtree, 11))
     
-    print(levelOrder(xtree))
+    # print(levelOrder(xtree))
+    
+    # print(buildTree([3,9,20,15,7],[9,3,15,20,7]))
+    print(SingleInstance())
+    print(SingleInstance())
+    print(SingleInstance())
+    print(SingleInstance())
+    
+    
+    

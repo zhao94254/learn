@@ -174,7 +174,7 @@ def combination(n, k):
 def permutation(n, k):
     res = []
     used = [False for _ in range(len(n))]
-    def dfs(s, cur):
+    def dfs(cur):
         if len(cur) == k:
             res.append(cur[:])
         for i in range(len(n)):
@@ -182,11 +182,11 @@ def permutation(n, k):
                 continue
             cur.append(n[i])
             used[i] = True
-            dfs(s + 1, cur)
+            dfs(cur)
             cur.pop()
             used[i] = False
     
-    dfs(0, [])
+    dfs([])
     return res
 
 
@@ -297,8 +297,21 @@ def maxProfit1(lst):
             res += d
     return res
 
+def permuteUnique(lst, k):
+    res = []
+    def helper(start, xlst):
+        if start == k:
+            res.append(xlst[:])
+        for i in range(start, k):
+            lst[i], lst[start] = lst[start], lst[i]
+            helper(start+1, lst)
+            lst[i], lst[start] = lst[start], lst[i]
+    helper(0, lst)
+    return res
 if __name__ == '__main__':
-    print(maxProfit1([7,1,5,3,6,4]))
+    print(permuteUnique([1,2,3], 2))
+    
+    # print(maxProfit1([7,1,5,3,6,4]))
     
     # print(maxPorfit([7,6,5,4]))
     # print(maxArea1([8,1,2,3,8,2]))
@@ -323,7 +336,7 @@ if __name__ == '__main__':
     
     # print(combination("123", 2))
     #
-    # print(permutation([1,2,3], 2))
+    print(permutation([1,2,3], 2))
     #
     # print(subsetss([1,2,3]))
     #

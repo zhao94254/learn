@@ -25,7 +25,28 @@ def threeSum(nums):
                 j += 1
     return res
     
+def mysqrtint(x):
+    l, r = 0, x
+    res = 0
+    while l < r:
+        mid = (r+l) // 2
+        if mid*mid > x:
+            r = mid-1
+        else:
+            res = mid
+            l = mid+1
+    return res
     
+def mysqrt(x):
+    l, r, = 0, x
+    mid = (l+r)/2
+    while abs(x - mid*mid) > 0.01:
+        if mid*mid > x:
+            r = mid
+        else:
+            l = mid
+        mid = (r+l)/2
+    return mid
 
 def twoSum(nums, target):
     """
@@ -45,8 +66,10 @@ def twoSum(nums, target):
     return [0, 0]
 
 
-
-if __name__ == '__main__':
-    print(threeSum([-1, 0, 1, 2, -1, -4]))
     
-    print(twoSum([3,2,4], 6))
+if __name__ == '__main__':
+    # print(threeSum([-1, 0, 1, 2, -1, -4]))
+    
+    # print(twoSum([3,2,4], 6))
+    
+    # print(mysqrt(8))
