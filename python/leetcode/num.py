@@ -66,10 +66,65 @@ def twoSum(nums, target):
     return [0, 0]
 
 
-    
+def addStrings(num1: str, num2: str) -> str:
+    """
+    leetcode 415
+    :param num1:
+    :param num2:
+    :return:
+    """
+    len1, len2 = len(num1) - 1, len(num2) - 1
+    res = ""
+    carry = 0
+    while len1 >= 0 or len2 >= 0:
+        n1 = int(num1[len1]) if len1 >= 0 else 0
+        n2 = int(num2[len2]) if len2 >= 0 else 0
+        tmp = n1 + n2 + carry
+        res = str(tmp % 10) + res
+        carry = int(tmp / 10)
+        len1 -= 1
+        len2 -= 1
+    return '1' + res if carry > 0 else res
+
+def multiply(num1: str, num2: str) -> str:
+    """
+    leetcode 43
+    :param num1:
+    :param num2:
+    :return:
+    """
+    if num1 == "0" or num2 == "0":
+        return '0'
+    len1, len2 = len(num1), len(num2)
+    res = [0] * (len1+len2-1)
+    for i in range(len1):
+        for j in range(len2):
+            res[i+j] = res[i+j] + int(num1[i]) * int(num2[j])
+    lst = res
+    carry = 0
+    for j in range(len(lst) - 1, -1, -1):
+        tmp = lst[j] + carry
+        lst[j] = tmp % 10
+        carry = int(tmp / 10)
+
+    return str(carry) + "".join(map(str, lst)) if carry > 0 else "".join(map(str, lst))
+
+
 if __name__ == '__main__':
     # print(threeSum([-1, 0, 1, 2, -1, -4]))
     
     # print(twoSum([3,2,4], 6))
     
     # print(mysqrt(8))
+    
+    import random
+    
+    for i in range(100):
+        a = random.randint(0, 10000)
+        b = random.randint(0, 10000)
+        if str(a*b) == multiply(str(a), str(b)):
+            print(a, b)
+    # print(multiply("99", "999"))
+    
+    # lst_carry([9, 27, 54, 45, 27, 0])
+    # lst_carry([1,0,0])

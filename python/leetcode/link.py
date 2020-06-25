@@ -138,16 +138,41 @@ def removeNthFromEnd(head, n):
         slow.next = slow.next.next
     return dummy.next
 
+def xreverse(link, n):
+    dummy = Linklist(0)
+    cur = dummy
+    while True:
+        t = n
+        tmp = []
+        tp = link
+        while t > 0 and tp:
+            t -= 1
+            tmp.append(tp)
+            tp = tp.next
+        if t > 0:
+            break
+        while tmp:
+            d = tmp.pop()
+            cur.next = d
+            cur = cur.next
+        print(tp)
+        link = tp
+        cur.next = tp
+    print(cur)
+    return dummy
+    
 
 if __name__ == '__main__':
-    lnk =  list_to_link(range(1, 2))
+    lnk =  list_to_link(range(1, 16))
     # print(reverse(lnk))
     # print(reverseKgroup(lnk, 4))
+    print(lnk)
+    print(xreverse(lnk, 3))
     # l1 = list_to_link([7,2,4,3])
     # l2 = list_to_link([5,6,4])
     # print(addTwoNumbers(l1, l2))
     
     # print(mergeTwoLists(list_to_link([1,3,5,9]), list_to_link([2,4,7,8])))
-    print(lnk)
+    # print(lnk)
     
-    print(removeNthFromEnd(lnk, 1))
+    # print(removeNthFromEnd(lnk, 1))
