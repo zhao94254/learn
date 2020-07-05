@@ -171,6 +171,40 @@ def intToRoman(d):
                 res += t
     return res
 
+
+def wordBreak(s, wordDict) -> bool:
+    """
+    workdict 中的单词是否可以组成 s
+    :param s:
+    :param wordDict:
+    :return:
+    """
+    wmap = {i:True for i in wordDict}
+    res = [0] * (len(s)+1)
+    res[0] = 1
+    for i in range(1, len(s)+1):
+        for j in range(0, i):
+            if res[j] == 1 and wmap.get(s[j:i], False):
+                res[i] = 1
+                break
+    return res[-1] == 1
+    
+def convert(s: str, numRows: int):
+    """
+    z 字型打印
+    :param s:
+    :param numRows:
+    :return:
+    """
+    res = ["" for i in range(len(s))]
+    i, flag = 0, -1 # 借一个flag 从上到下从下到上
+    for t in s:
+        flag = -flag if i == 0 or i == numRows-1 else flag
+        res[i] += t
+        i = i+flag
+    print(res)
+    return res
+
 if __name__ == '__main__':
     # print(longestCommonPrefix(["dog","racecar","car"]))
     
@@ -182,6 +216,12 @@ if __name__ == '__main__':
     
     # print(xsqrt(8.0, 0.04))
     
-    print(simplifyPath("/a//b////c/d//././/.."))
+    # print(simplifyPath("/a//b////c/d//././/.."))
+    #
+    # print(intToRoman(58))
     
-    print(intToRoman(58))
+    print(wordBreak("applepenapple", ["apple", "pen"]))
+    
+    convert("LEETCOD", 3)
+    
+    
