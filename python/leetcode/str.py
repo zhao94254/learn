@@ -205,6 +205,36 @@ def convert(s: str, numRows: int):
     print(res)
     return res
 
+def isMatch(s, p):
+    """
+    通配匹配 ？匹配任意一个 * 匹配0个或者多个
+    :param s:
+    :param p:
+    :return:
+    """
+    i, j = 0, 0
+    istar = -1
+    jstar = -1
+    while i < len(s):
+        if j < len(p) and (s[i] == p[j] or p[j] == '?'):  # 正常匹配到
+            i += 1
+            j += 1
+        elif j < len(p) and p[j] == "*":   # 遇到通配符，记录通配符起始位置
+            istar = i
+            jstar = j
+            j += 1
+        elif istar >= 0:  # 前面有可用的 *  istar 向后移动
+            istar += 1
+            i = istar
+            j = jstar + 1
+        else:
+            return False
+    for t in range(j, len(p)): # 去掉p 最后的*
+        if p[t] != "*":
+            return False
+    return True
+        
+
 if __name__ == '__main__':
     # print(longestCommonPrefix(["dog","racecar","car"]))
     
@@ -220,8 +250,11 @@ if __name__ == '__main__':
     #
     # print(intToRoman(58))
     
-    print(wordBreak("applepenapple", ["apple", "pen"]))
+    # print(wordBreak("applepenapple", ["apple", "pen"]))
+    #
+    # convert("LEETCOD", 3)
     
-    convert("LEETCOD", 3)
+    print(isMatch("aaa", "*?"))
+    print(isMatch("abcdeasdfadf", "a*ea***d*"))
     
     
